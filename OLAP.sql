@@ -85,3 +85,54 @@ CREATE TABLE olap.fact_ventas (
 
 CREATE INDEX idx_fact_tiempo
 ON olap.fact_ventas(id_tiempo);
+
+-- ==========================================
+-- Dimensiones
+-- ==========================================
+
+CREATE TABLE olap.dim_ingrediente (
+    id_ingrediente INT PRIMARY KEY,
+    nombre VARCHAR(100),
+    categoria VARCHAR(50),
+    unidad_medida VARCHAR(20),
+    costo_actual DECIMAL(10,2),
+    perecedero BOOLEAN
+);
+
+CREATE TABLE olap.dim_proveedor (
+    id_proveedor INT PRIMARY KEY,
+    nombre VARCHAR(100),
+    contacto VARCHAR(100),
+    telefono VARCHAR(20),
+    ciudad VARCHAR(100)
+);
+
+CREATE TABLE olap.fact_inventario (
+    id_fact_inventario SERIAL PRIMARY KEY,
+
+    id_tiempo INT,
+    id_sucursal INT,
+    id_ingrediente INT,
+    id_proveedor INT,
+
+    tipo_movimiento VARCHAR(50),
+    cantidad DECIMAL(10,3),
+    costo_unitario DECIMAL(10,2),
+    costo_total DECIMAL(10,2),
+
+    FOREIGN KEY (id_ingrediente) 
+        REFERENCES olap.dim_ingrediente(id_ingrediente),
+        
+    FOREIGN KEY (id_proveedor) 
+        REFERENCES olap.dim_proveedor(id_proveedor),
+    
+    FOREIGN KEY (id_tiempo) 
+        REFERENCES olap.dim_tiempo(id_tiempo),
+        
+    FOREIGN KEY (id_sucursal) 
+        REFERENCES olap.dim_sucursal(id_sucursal)
+);
+
+CREATE INDEX idx_fact_inv_tiempo ON olap.fact_inventario(id_tiempo);
+CREATE INDEX idx_fact_inv_sucursal ON olap.fact_inventario(id_sucursal);
+CREATE INDEX idx_fact_inv_ingrediente ON olap.fact_inventario(id_ingrediente);
