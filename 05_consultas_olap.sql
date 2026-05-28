@@ -1,0 +1,1 @@
+-- Aquí podría haber consultas olap para verificar su funcionamiento UNUSED
