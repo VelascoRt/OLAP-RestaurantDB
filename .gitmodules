@@ -1,0 +1,6 @@
+[submodule "ETLmlFase2"]
+	path = ETLmlFase2
+	url = https://github.com/Tronol/ETLmlFase2
+[submodule "Base-de-datos-restaurante"]
+	path = Base-de-datos-restaurante
+	url = https://github.com/lpmvdev7/Base-de-datos-restaurante
