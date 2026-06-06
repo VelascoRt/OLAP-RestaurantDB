@@ -63,38 +63,36 @@ CREATE TABLE olap.dim_metodo_pago (
     metodo_pago    VARCHAR(50)
 );
 
--- Cubo de ventas (tabla de hechos)
 CREATE TABLE olap.fact_ventas (
-    -- Primary keys
-    id_fact_venta   SERIAL         PRIMARY KEY,
-    id_tiempo       INT            NOT NULL,
-    id_cliente      INT            NOT NULL,
-    id_platillo     INT            NOT NULL,
-    id_sucursal     INT            NOT NULL,
-    id_empleado     INT            NOT NULL,
-    id_mesa         INT            NOT NULL,
-    id_metodo_pago  INT            NOT NULL,
-    cantidad        INT,
+    id_tiempo INT NOT NULL,
+    id_cliente INT NOT NULL,
+    id_platillo INT NOT NULL,
+    id_sucursal INT NOT NULL,
+    id_empleado INT NOT NULL,
+    id_mesa INT NOT NULL,
+    id_metodo_pago INT NOT NULL,
+
+    cantidad INT,
     precio_unitario DECIMAL(10,2),
-    subtotal        DECIMAL(10,2),
-    total_pedido    DECIMAL(10,2),
-    monto_pago      DECIMAL(10,2),
+    subtotal DECIMAL(10,2),
+    total_pedido DECIMAL(10,2),
+    monto_pago DECIMAL(10,2),
 
-    FOREIGN KEY (id_tiempo)       REFERENCES olap.dim_tiempo(id_tiempo),
-    FOREIGN KEY (id_cliente)      REFERENCES olap.dim_cliente(id_cliente),
-    FOREIGN KEY (id_platillo)     REFERENCES olap.dim_platillo(id_platillo),
-    FOREIGN KEY (id_sucursal)     REFERENCES olap.dim_sucursal(id_sucursal),
-    FOREIGN KEY (id_empleado)     REFERENCES olap.dim_empleado(id_empleado),
-    FOREIGN KEY (id_mesa)         REFERENCES olap.dim_mesa(id_mesa),
-    FOREIGN KEY (id_metodo_pago)  REFERENCES olap.dim_metodo_pago(id_metodo_pago)
+    PRIMARY KEY (
+        id_tiempo,
+        id_cliente,
+        id_platillo,
+        id_sucursal,
+        id_empleado,
+        id_mesa,
+        id_metodo_pago
+    ),
+
+    FOREIGN KEY (id_tiempo) REFERENCES olap.dim_tiempo(id_tiempo),
+    FOREIGN KEY (id_cliente) REFERENCES olap.dim_cliente(id_cliente),
+    FOREIGN KEY (id_platillo) REFERENCES olap.dim_platillo(id_platillo),
+    FOREIGN KEY (id_sucursal) REFERENCES olap.dim_sucursal(id_sucursal),
+    FOREIGN KEY (id_empleado) REFERENCES olap.dim_empleado(id_empleado),
+    FOREIGN KEY (id_mesa) REFERENCES olap.dim_mesa(id_mesa),
+    FOREIGN KEY (id_metodo_pago) REFERENCES olap.dim_metodo_pago(id_metodo_pago)
 );
-
--- Índices en cada FK para rendimiento en visualización
-
-CREATE INDEX idx_fv_tiempo       ON olap.fact_ventas(id_tiempo);
-CREATE INDEX idx_fv_cliente      ON olap.fact_ventas(id_cliente);
-CREATE INDEX idx_fv_platillo     ON olap.fact_ventas(id_platillo);
-CREATE INDEX idx_fv_sucursal     ON olap.fact_ventas(id_sucursal);
-CREATE INDEX idx_fv_empleado     ON olap.fact_ventas(id_empleado);
-CREATE INDEX idx_fv_mesa         ON olap.fact_ventas(id_mesa);
-CREATE INDEX idx_fv_metodo_pago  ON olap.fact_ventas(id_metodo_pago);
