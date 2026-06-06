@@ -24,7 +24,7 @@ BI / Machine Learning
 
 # Diagrama Estrella
 
-<img src="Diagrama_Estrella.jpg" alt="Diagrama Estrella">
+<img src="Diagrama_Estrella.jpeg" alt="Diagrama Estrella">
 
 ---
 
