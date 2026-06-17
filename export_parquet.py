@@ -7,7 +7,7 @@ conexion = psycopg2.connect(
     database="restaurante",
     user="postgres",
     password="postgres",
-    port="5432"
+    port="5433"
 )
 
 # query de ventas
